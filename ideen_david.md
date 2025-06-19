@@ -96,3 +96,48 @@ function getElementContent(el: HTMLElement) {
 	return el.textContent;
 }
 ```
+
+## String Literale vs. Enums:
+
+String Literale:
+
+```ts
+type Language = 'JavaScript' | 'TypeScript' | 'Python';
+
+function greet(lang: Language) {
+  console.log(`Hello, ${lang}-Developer!`);
+}
+
+greet('Python');        // ✅
+greet('C#');             // ❌ Fehler: Argument of type '"C#"' is not assignable to parameter of type 'Language'.
+```
+
+Kann man auch ableiten:
+
+```ts
+const languages = ['JavaScript', 'TypeScript', 'Python'] as const;
+type Language2 = typeof languages[number]; // 'JavaScript' | 'TypeScript' | 'Python'
+```
+
+Und Enums
+```ts
+enum LanguageEnum {
+  JavaScript = 'JavaScript',
+  TypeScript = 'TypeScript',
+  Python = 'Python',
+}
+
+function greetEnum(lang: LanguageEnum) {
+  console.log(`Hello, ${lang}-Developer!`);
+}
+
+greetEnum(LanguageEnum.Python); // ✅
+```
+
+| Szenario                                             | String-Literal-Union         | Enum                             |
+|------------------------------------------------------|-------------------------------|----------------------------------|
+| **Nur Typ-Sicherheit, kein Laufzeit-Mapping**        | ✅ Ideal                      | ❌ Overkill                      |
+| **Discriminated Unions / Pattern-Matching**          | ✅ Standardlösung             | ❌ Umständlich                   |
+| **Zentrale Liste, Iteration & Reverse-Lookup nötig** | ❌ Umständlich                | ✅ Perfekt                       |
+| **Verwendung in JSON-APIs / Serialisierung**         | ✅ Sauber                     | ✅ Klarer                        |
+| **Automatisches Refactoring / große Code-Basis**     | ✅ (mit literal-unions)       | ✅ (IDE-Unterstützung oft besser) |
