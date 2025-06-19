@@ -28,7 +28,11 @@
 ## `readonly`
 - Zieht sich ggf. durch Funktionsketten und führt zu saubererem Code
 - Es gibt auch `DeepReadonly` aus **ts‑essentials**
-- Kopien per Spread erstellen
+- Kopien per Spread erstellen (mit conditionals):
+
+```ts
+const pharaoh = { ...nameTitle, ...(hasDates && {start: -2589, end: -2566})};
+``` 
 
 ## Kleine Helfer
 - `Pick<State, …>`
