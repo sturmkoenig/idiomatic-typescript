@@ -82,3 +82,17 @@ const fee = match<AccountEvent, number>({
   WITHDRAWN: (e) => e.success ? e.amount * 0.03 : 15,
 })(event);
 ```
+
+## TypeGuards
+
+```ts
+function isInputElement(el: Element): el is HTMLInputElement {
+	return 'value' in el;
+}
+function getElementContent(el: HTMLElement) {
+	if (isInputElement(el)) {
+		return el.value;
+	}
+	return el.textContent;
+}
+```
