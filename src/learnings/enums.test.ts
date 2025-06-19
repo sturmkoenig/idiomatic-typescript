@@ -1,18 +1,20 @@
-import {expect, test, vi} from 'vitest'
-import {printSkills, printStatus, SkillsEnum} from "./enums.ts";
+import { expect, test, vi } from "vitest";
+import { printSkills, printStatus, Skills, STATUS } from "./enums.ts";
 
-const consoleSpy = vi.spyOn(console, 'log')
+const consoleSpy = vi.spyOn(console, "log");
 
 test("should accept only enum values", () => {
-    printSkills(SkillsEnum.Typescript)
-    expect(consoleSpy).toHaveBeenCalledWith('Typescript')
-})
+  printSkills(Skills.Typescript);
+  expect(consoleSpy).toHaveBeenCalledWith("Typescript");
+});
 
 test("should be callable by string", () => {
-    printSkills("Typescript")
-})
+  // can't use a string!
+  //printSkills("Typescript");
+  printSkills(Skills.Typescript);
+});
 
 test("should be callable by string", () => {
-    printStatus("loading")
-})
-
+  printStatus("loading");
+  printStatus(STATUS.LOADED);
+});
