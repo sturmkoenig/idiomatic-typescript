@@ -1,5 +1,7 @@
 # TypeScript Talk
 
+# Machen wir:
+
 ## No `any`
 - **Wie bringt man den Typchecker dazu das anzukreiden?**  
   `noImplicitAny`
@@ -7,8 +9,22 @@
 ## Strict null checks
 - Aktivieren mit `strictNullChecks`
 
-## Don’t use `let`!
+## Immutablitiy
+
+### Don’t use `let`!
 - In 99 % der Fälle kann man auf `const` umstellen und erhält funktionaleren, nachvollziehbareren Code.
+
+### `readonly`
+- Zieht sich ggf. durch Funktionsketten und führt zu saubererem Code
+- Es gibt auch `DeepReadonly` aus **ts‑essentials**
+- Kopien per Spread erstellen (mit conditionals):
+
+```ts
+const pharaoh = { ...nameTitle, ...(hasDates && {start: -2589, end: -2566})};
+``` 
+
+
+# Noch zu besprechen:
 
 ## Typisieren von Funktionen (?)
 
@@ -24,15 +40,6 @@
   - `extends` in `interface` vs. `T & { x: string }`
   - Zusammenführen (Merken) von Interfaces, wenn man sie zweimal definiert (z. B. in *.d.ts*)
 - Stil lässt sich per ESLint‑Regel `consistent-type-definitions` erzwingen
-
-## `readonly`
-- Zieht sich ggf. durch Funktionsketten und führt zu saubererem Code
-- Es gibt auch `DeepReadonly` aus **ts‑essentials**
-- Kopien per Spread erstellen (mit conditionals):
-
-```ts
-const pharaoh = { ...nameTitle, ...(hasDates && {start: -2589, end: -2566})};
-``` 
 
 ## Kleine Helfer
 - `Pick<State, …>`
