@@ -44,10 +44,10 @@ Wann und wofür kann man Type Aliases nutzen
 - **Gegen eine Schnittstelle (oder einen Type) entwickeln**
   - Beispiel: `type DB` definieren, der nur die wirklich benötigten Funktionen enthält.  
   In der Praxis kann trotzdem eine echte DB verwendet werden – im Test wird es dadurch einfacher!
-- **Index‑Signature‑Types vermeiden**
+- ~~**Index‑Signature‑Types vermeiden**~~
   - Beispiel: `{ [key: string]: string }`
   - Wackelkandidat
-- **Domain‑Typen statt Primitives**
+- ~~**Domain‑Typen statt Primitives**~~
 ```ts
 type Email = string & { readonly __brand: 'Email' };
 
@@ -76,14 +76,14 @@ function getElementContent(el: HTMLElement) {
 }
 ```
 
-## Typisieren von Funktionen (?)
+## ~~Typisieren von Funktionen (?)~~
 - Wackelkandidat
 
-## Class vs. Function
+## ~~Class vs. Function~~
 - Sichtbarkeiten, Closures etc.
 - Wackelkandidat
 
-## Union & Match statt `switch`
+## ~~Union & Match statt `switch`~~
 
 ```ts
 type Opened    = { type: 'OPENED';    openedAt: Date };
@@ -175,7 +175,7 @@ type Result = ErrorResponse | SuccessResponse;
 
 könnte man vielleicht mit __Union & Match__ verbinden.
 
-## Result Types
+## ~~Result Types~~
 
 - Wie in next
 - Wackelkandidat
