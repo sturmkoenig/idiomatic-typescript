@@ -38,25 +38,16 @@ Wann und wofür kann man Type Aliases nutzen
   - `extends` in `interface` vs. `T & { x: string }`
   - Zusammenführen (Merken) von Interfaces, wenn man sie zweimal definiert (z. B. in *.d.ts*)
 - Stil lässt sich per ESLint‑Regel `consistent-type-definitions` erzwingen
-- ### Kleine Helfer
+- **Kleine Helfer**
   - `Pick<State, …>`
   - `ReturnType<typeof someFunction>`
-
-
-
-# Noch zu besprechen:
-
-## Typisieren von Funktionen (?)
-
-## Index‑Signature‑Types vermeiden
-- Beispiel: `{ [key: string]: string }`
-
-## Gegen eine Schnittstelle (oder einen Type) entwickeln
-- Beispiel: `type DB` definieren, der nur die wirklich benötigten Funktionen enthält.  
+- **Gegen eine Schnittstelle (oder einen Type) entwickeln**
+  - Beispiel: `type DB` definieren, der nur die wirklich benötigten Funktionen enthält.  
   In der Praxis kann trotzdem eine echte DB verwendet werden – im Test wird es dadurch einfacher!
-
-## Domain‑Typen statt Primitives
-
+- **Index‑Signature‑Types vermeiden**
+  - Beispiel: `{ [key: string]: string }`
+  - Wackelkandidat
+- **Domain‑Typen statt Primitives**
 ```ts
 type Email = string & { readonly __brand: 'Email' };
 
@@ -69,9 +60,28 @@ function sendMail(to: Email, subject: string) { /* … */ }
 
 sendMail('not-an-email', 'Hi');
 ```
+  - Wackelkandidat (fällt vielleicht etwas aus dem Konzept raus)
+
+- **TypeGuards**
+
+```ts
+function isInputElement(el: Element): el is HTMLInputElement {
+	return 'value' in el;
+}
+function getElementContent(el: HTMLElement) {
+	if (isInputElement(el)) {
+		return el.value;
+	}
+	return el.textContent;
+}
+```
+
+## Typisieren von Funktionen (?)
+- Wackelkandidat
 
 ## Class vs. Function
 - Sichtbarkeiten, Closures etc.
+- Wackelkandidat
 
 ## Union & Match statt `switch`
 
@@ -92,20 +102,11 @@ const fee = match<AccountEvent, number>({
   WITHDRAWN: (e) => e.success ? e.amount * 0.03 : 15,
 })(event);
 ```
+  - Wackelkandidat
 
-## TypeGuards
 
-```ts
-function isInputElement(el: Element): el is HTMLInputElement {
-	return 'value' in el;
-}
-function getElementContent(el: HTMLElement) {
-	if (isInputElement(el)) {
-		return el.value;
-	}
-	return el.textContent;
-}
-```
+# Noch zu besprechen:
+
 
 ## String Literale vs. Enums:
 
