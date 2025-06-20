@@ -104,11 +104,9 @@ const fee = match<AccountEvent, number>({
 ```
   - Wackelkandidat
 
-
-# Noch zu besprechen:
-
-
 ## String Literale vs. Enums:
+
+Als Überleitung zu den Discriminated Unions:
 
 String Literale:
 
@@ -177,7 +175,9 @@ type Result = ErrorResponse | SuccessResponse;
 
 könnte man vielleicht mit __Union & Match__ verbinden.
 
-
 ## Result Types
 
-Wie in next
+- Wie in next
+- Wackelkandidat
+
+
