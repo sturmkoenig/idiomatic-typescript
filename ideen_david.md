@@ -21,14 +21,12 @@
 
 ```ts
 const pharaoh = { ...nameTitle, ...(hasDates && {start: -2589, end: -2566})};
-``` 
+```
 
+## The Power of Type Aliases
 
-# Noch zu besprechen:
+Wann und wofür kann man Type Aliases nutzen
 
-## Typisieren von Funktionen (?)
-
-## Interfaces vs. Type Alias
 - **Was sollte der Default sein?**
 - *Effective TypeScript* empfiehlt `interface`, außer man benötigt spezielle Features von `type`.
 - **Meine Sicht:** Semantisch meint man meistens `type`.
@@ -40,6 +38,12 @@ const pharaoh = { ...nameTitle, ...(hasDates && {start: -2589, end: -2566})};
   - `extends` in `interface` vs. `T & { x: string }`
   - Zusammenführen (Merken) von Interfaces, wenn man sie zweimal definiert (z. B. in *.d.ts*)
 - Stil lässt sich per ESLint‑Regel `consistent-type-definitions` erzwingen
+
+
+
+# Noch zu besprechen:
+
+## Typisieren von Funktionen (?)
 
 ## Kleine Helfer
 - `Pick<State, …>`
