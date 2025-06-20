@@ -38,16 +38,15 @@ Wann und wofür kann man Type Aliases nutzen
   - `extends` in `interface` vs. `T & { x: string }`
   - Zusammenführen (Merken) von Interfaces, wenn man sie zweimal definiert (z. B. in *.d.ts*)
 - Stil lässt sich per ESLint‑Regel `consistent-type-definitions` erzwingen
+- ### Kleine Helfer
+  - `Pick<State, …>`
+  - `ReturnType<typeof someFunction>`
 
 
 
 # Noch zu besprechen:
 
 ## Typisieren von Funktionen (?)
-
-## Kleine Helfer
-- `Pick<State, …>`
-- `ReturnType<typeof someFunction>`
 
 ## Index‑Signature‑Types vermeiden
 - Beispiel: `{ [key: string]: string }`
