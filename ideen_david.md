@@ -141,3 +141,32 @@ greetEnum(LanguageEnum.Python); // ✅
 | **Zentrale Liste, Iteration & Reverse-Lookup nötig** | ❌ Umständlich                | ✅ Perfekt                       |
 | **Verwendung in JSON-APIs / Serialisierung**         | ✅ Sauber                     | ✅ Klarer                        |
 | **Automatisches Refactoring / große Code-Basis**     | ✅ (mit literal-unions)       | ✅ (IDE-Unterstützung oft besser) |
+
+## Discriminated Unions
+
+Wichtig um State fehlerfrei abzubilden.
+
+```ts
+type ErrorResponse = {
+  message: string;
+  statusCode: number;
+    cause: string;
+    response_type: "error";  
+};
+
+type SuccessResponse = {
+    message: string;
+    statusCode: number;
+    data: Record<string, unknown>;
+    response_type: "success";  
+};
+
+type Result = ErrorResponse | SuccessResponse;
+```
+
+könnte man vielleicht mit __Union & Match__ verbinden.
+
+
+## Result Types
+
+Wie in next
