@@ -1,11 +1,29 @@
 /* Immutability
  *
- * uses const instead of let
+ * uses const instead of let TODO
  * usage of readonly and deepReadonly
+ * usage of `as const` type assertion to assume narrowest possible type
+ * showcase array operations that mutate the data structure (.sort, .push)
  *  */
 
 import { expect, test } from "vitest";
 import type { DeepReadonly } from "ts-essentials";
+
+test("mutating shared object causes bugs", () => {
+  type Settings = { darkMode: boolean };
+
+  const updateDarkMode = (settings: Settings, enabled: boolean) => {
+    settings.darkMode = enabled;
+  };
+
+  const settings = { darkMode: false };
+  const userA = settings;
+  const userB = settings;
+
+  updateDarkMode(userA, true);
+
+  expect(userB.darkMode).toBe(false); // ❌ schlägt fehl
+});
 
 //common bugs
 test("unintentional overwrite", () => {
@@ -19,6 +37,7 @@ test("unintentional overwrite", () => {
   expect(cities[0]).toBe("Tokyo");
 });
 
+// enforcing immutability using readonly
 test("use immutable variants", () => {
   const logCitiesAphabetical = (cities: Readonly<string[]>) =>
     console.log(cities.toSorted());
@@ -103,7 +122,7 @@ test("what about readonly objects?", () => {
     },
   };
 
-  const clonedUser = originalUser;
+  const clonedUser = { ...originalUser };
 
   clonedUser.contact.street = "Knasterkattasteramt 2.";
 
@@ -111,6 +130,7 @@ test("what about readonly objects?", () => {
     "Henriette Constanette Weg 3",
   );
 });
+
 test("deepreadonly to the rescue", () => {
   type User = {
     id: string;
@@ -132,9 +152,38 @@ test("deepreadonly to the rescue", () => {
     },
   };
 
-  const clonedUser = originalUser;
+  const clonedUser = { ...originalUser };
 
-  clonedUser.contact.street = "Knasterkattasteramt 2.";
+  // error due to deepreadonly!
+  //clonedUser.contact.street = "Knasterkattasteramt 2.";
+});
+
+// it is also possible to cast to 'as const'
+test("deepreadonly to the rescue", () => {
+  type User = {
+    id: string;
+    name: string;
+    roles: string[];
+    contact: {
+      street: string;
+      city: string;
+    };
+  };
+
+  const originalUser = {
+    id: "u123",
+    name: "Alice",
+    roles: ["user"],
+    contact: {
+      street: "Henriette Constanette Weg 3.",
+      city: "Bumselburg",
+    },
+  } as const;
+
+  const clonedUser = { ...originalUser };
+
+  // error due to deepreadonly!
+  //clonedUser.contact.street = "Knasterkattasteramt 2.";
 });
 
 test("how to copy readonly object then?", () => {
@@ -163,4 +212,19 @@ test("how to copy readonly object then?", () => {
     contact: { ...originalUser.contact, street: "Knasterkattasteramt 2." },
   };
   expect(clonedUser.contact.street).toEqual("Knasterkattasteramt 2.");
+  expect(originalUser.contact.street).toEqual("Henriette Constanette Weg 3.");
 });
+
+// use as const to assume most narrow type possible!
+test("mutation inside nested structure", () => {
+  const config = {
+    options: {
+      flags: ["fast", "debug"],
+    },
+  } as const;
+
+  //config.options.flags.push("verbose"); // ❌
+});
+
+// use const as a default TODO
+test("let vs const", () => {});
